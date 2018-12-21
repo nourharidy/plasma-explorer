@@ -1,17 +1,22 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="blocks"
-    class="elevation-1"
+  <v-container
+    id="grid"
+    grid-list-md
   >
-    <template slot="items" slot-scope="props">
-      <router-link tag="tr" :to="{ name: 'block', params: { number: props.item.number } }">
-        <td>{{ props.item.number }}</td>
-        <td>{{ props.item.hash }}</td>
-        <td>{{ props.item.transactions }}</td>
-      </router-link>
-    </template>
-  </v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="blocks"
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <router-link tag="tr" class="table-row" :to="{ name: 'block', params: { number: props.item.number } }">
+          <td>{{ props.item.number }}</td>
+          <td>{{ props.item.hash }}</td>
+          <td>{{ props.item.transactions }}</td>
+        </router-link>
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
@@ -86,3 +91,9 @@
     }
   }
 </script>
+
+<style>
+.table-row {
+  cursor: pointer;
+}
+</style>

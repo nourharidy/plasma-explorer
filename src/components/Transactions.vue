@@ -1,20 +1,25 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="transactions"
-    class="elevation-1"
+  <v-container
+    id="grid"
+    grid-list-md
   >
-    <template slot="items" slot-scope="props">
-      <router-link tag="tr" :to="{ name: 'transaction', params: { hash: props.item.hash } }">
-        <td>{{ props.item.hash }}</td>
-        <td>{{ props.item.block }}</td>
-        <td>{{ props.item.from }}</td>
-        <td>{{ props.item.to }}</td>
-        <td>{{ props.item.val }}</td>
-        <td>{{ props.item.fee }}</td>
-      </router-link>
-    </template>
-  </v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="transactions"
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <router-link tag="tr" class="table-row" :to="{ name: 'transaction', params: { hash: props.item.hash } }">
+          <td>{{ props.item.hash }}</td>
+          <td>{{ props.item.block }}</td>
+          <td>{{ props.item.from }}</td>
+          <td>{{ props.item.to }}</td>
+          <td>{{ props.item.val }}</td>
+          <td>{{ props.item.fee }}</td>
+        </router-link>
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
@@ -74,3 +79,9 @@
     }
   }
 </script>
+
+<style>
+.table-row {
+  cursor: pointer;
+}
+</style>
