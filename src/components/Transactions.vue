@@ -10,7 +10,7 @@
         <td>{{ props.item.block }}</td>
         <td>{{ props.item.from }}</td>
         <td>{{ props.item.to }}</td>
-        <td>{{ props.item.amount }}</td>
+        <td>{{ props.item.val }}</td>
         <td>{{ props.item.fee }}</td>
       </router-link>
     </template>
@@ -66,7 +66,7 @@
             block: 1,
             from: '0x0000000000000000000000000000000000000000',
             to: '0x0000000000000000000000000000000000000000',
-            amount: 0,
+            val: 0,
             fee: 0
           }
         ]

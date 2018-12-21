@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
+      <router-link to="/" tag="v-toolbar-title" class="headline text-uppercase">
         <span>Explorer</span>
-      </v-toolbar-title>
+      </router-link>
       <v-spacer></v-spacer>
       <v-btn flat to="/blocks">
         <span class="mr-2">Blocks</span>
@@ -24,3 +24,9 @@ export default {
   name: 'App'
 }
 </script>
+
+<style>
+.headline {
+  cursor: pointer;
+}
+</style>

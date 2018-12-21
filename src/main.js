@@ -4,6 +4,7 @@ import './plugins/vuetify'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 
+import Home from './components/Home'
 import Blocks from './components/Blocks'
 import Transactions from './components/Transactions'
 import Block from './components/Block'
@@ -13,6 +14,7 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routes = [
+  { path: '/', component: Home },
   { path: '/blocks', component: Blocks },
   { path: '/transactions', component: Transactions },
   { path: '/block/:number', name: 'block', component: Block },
