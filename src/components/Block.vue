@@ -19,14 +19,14 @@
               Hash:
             </v-flex>
             <v-flex xs12 md10>
-              {{ hash }}
+              {{ block.hash }}
             </v-flex>
 
             <v-flex xs12 md2 class="property-title">
               Transactions:
             </v-flex>
             <v-flex xs12 md10>
-              {{ transactions }}
+              {{ block.transactions }}
             </v-flex>
           </v-layout>
         </div>
@@ -36,12 +36,20 @@
 </template>
 
 <script>
+  import plasma from '../services/client-service'
+
   export default {
     data () {
       return {
-        hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-        transactions: 0
+        block: undefined
       }
+    },
+    mounted () {
+      plasma
+        .getBlock(this.$route.params.number)
+        .then((block) => {
+          this.block = block
+        })
     }
   }
 </script>

@@ -23,10 +23,7 @@
 </template>
 
 <script>
-  const plasma = require('plasma-client')
-
-  const provider = new plasma.providers.DummyProvider()
-  const client = new plasma.PlasmaClient(provider)
+  import plasma from '../services/client-service'
 
   export default {
     data () {
@@ -73,9 +70,11 @@
       }
     },
     mounted () {
-      client
+      plasma
         .getTransactions()
-        .then((txs) => { this.transactions = txs })
+        .then((txs) => {
+          this.transactions = txs
+        })
     }
   }
 </script>

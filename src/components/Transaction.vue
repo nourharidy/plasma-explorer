@@ -19,28 +19,28 @@
               Block:
             </v-flex>
             <v-flex xs12 md10>
-              <router-link :to="{ name:'block', params: { number: block } }">{{ block }}</router-link>
+              <router-link :to="{ name:'block', params: { number: tx.block } }">{{ tx.block }}</router-link>
             </v-flex>
 
             <v-flex xs12 md2 class="property-title">
               From:
             </v-flex>
             <v-flex xs12 md10>
-              {{ from }}
+              {{ tx.from }}
             </v-flex>
 
             <v-flex xs12 md2 class="property-title">
               To:
             </v-flex>
             <v-flex xs12 md10>
-              {{ to }}
+              {{ tx.to }}
             </v-flex>
 
             <v-flex xs12 md2 class="property-title">
               Value:
             </v-flex>
             <v-flex xs12 md10>
-              {{ val }}
+              {{ tx.val }}
             </v-flex>
           </v-layout>
         </div>
@@ -50,14 +50,20 @@
 </template>
 
 <script>
+  import plasma from '../services/client-service'
+
   export default {
     data () {
       return {
-        block: 1,
-        from: '0x0000000000000000000000000000000000000000',
-        to: '0x0000000000000000000000000000000000000000',
-        val: 0
+        tx: undefined
       }
+    },
+    mounted () {
+      plasma
+        .getTransaction(this.$route.params.hash)
+        .then((tx) => {
+          this.tx = tx
+        })
     }
   }
 </script>

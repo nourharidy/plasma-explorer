@@ -20,10 +20,7 @@
 </template>
 
 <script>
-  const plasma = require('plasma-client')
-
-  const provider = new plasma.providers.DummyProvider()
-  const client = new plasma.PlasmaClient(provider)
+  import plasma from '../services/client-service'
 
   export default {
     data () {
@@ -52,9 +49,11 @@
       }
     },
     mounted () {
-      client
+      plasma
         .getBlocks(0, 10)
-        .then((blocks) => { this.blocks = blocks })
+        .then((blocks) => {
+          this.blocks = blocks
+        })
     }
   }
 </script>
