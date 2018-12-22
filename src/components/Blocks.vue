@@ -20,6 +20,11 @@
 </template>
 
 <script>
+  const plasma = require('plasma-client')
+
+  const provider = new plasma.providers.DummyProvider()
+  const client = new plasma.PlasmaClient(provider)
+
   export default {
     data () {
       return {
@@ -43,51 +48,13 @@
             value: 'transactions'
           }
         ],
-        blocks: [
-          {
-            value: false,
-            number: 1,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 2,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 3,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 4,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 5,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 6,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          },
-          {
-            value: false,
-            number: 7,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            transactions: 0,
-          }
-        ]
+        blocks: []
       }
+    },
+    mounted () {
+      client
+        .getBlocks(0, 10)
+        .then((blocks) => { this.blocks = blocks })
     }
   }
 </script>

@@ -23,6 +23,11 @@
 </template>
 
 <script>
+  const plasma = require('plasma-client')
+
+  const provider = new plasma.providers.DummyProvider()
+  const client = new plasma.PlasmaClient(provider)
+
   export default {
     data () {
       return {
@@ -64,18 +69,13 @@
             value: 'fee'
           }
         ],
-        transactions: [
-          {
-            value: false,
-            hash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-            block: 1,
-            from: '0x0000000000000000000000000000000000000000',
-            to: '0x0000000000000000000000000000000000000000',
-            val: 0,
-            fee: 0
-          }
-        ]
+        transactions: []
       }
+    },
+    mounted () {
+      client
+        .getTransactions()
+        .then((txs) => { this.transactions = txs })
     }
   }
 </script>
