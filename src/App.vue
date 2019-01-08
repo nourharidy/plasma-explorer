@@ -2,9 +2,12 @@
   <v-app>
     <v-toolbar app>
       <router-link to="/" tag="v-toolbar-title" class="headline text-uppercase">
-        <span>Explorer</span>
+        <span>Plasma Block Explorer</span>
       </router-link>
       <v-spacer></v-spacer>
+      <v-btn flat to="/dashboard">
+        <span class="mr-2">Dashboard</span>
+      </v-btn>
       <v-btn flat to="/blocks">
         <span class="mr-2">Blocks</span>
       </v-btn>

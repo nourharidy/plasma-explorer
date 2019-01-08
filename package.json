@@ -20,7 +20,7 @@
     "url": "https://github.com/plasma-group/plasma-explorer/issues"
   },
   "dependencies": {
-    "plasma-client": "file:../plasma-client",
+    "plasma-js-lib": "git@github.com:plasma-group/plasma-js-lib.git",
     "vue": "^2.5.17",
     "vue-router": "^3.0.2",
     "vuetify": "^1.3.0"
