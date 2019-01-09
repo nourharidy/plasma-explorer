@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import './plugins/vuetify'
 
-import VueRouter from 'vue-router'
+import Meta from 'vue-meta'
+import Router from 'vue-router'
 import App from './App.vue'
 
 import Home from './components/Home'
@@ -10,7 +10,9 @@ import Transactions from './components/Transactions'
 import Block from './components/Block'
 import Transaction from './components/Transaction'
 
-Vue.use(VueRouter)
+Vue.use(Router)
+Vue.use(Meta)
+
 Vue.config.productionTip = false
 
 const routes = [
@@ -21,7 +23,7 @@ const routes = [
   { path: '/transaction/:hash', name: 'transaction', component: Transaction }
 ]
 
-const router = new VueRouter({
+const router = new Router({
   routes
 })
 

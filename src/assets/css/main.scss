@@ -1,0 +1,105 @@
+/* Fonts */
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/assets/fonts/RobotoMono-Regular.ttf');
+}
+
+body {
+  background-color: #FBFBFB;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media screen and (min-width: 48em) {
+  .container {
+    width: 750px;
+  }
+}
+@media screen and (min-width: 64em) {
+  .container {
+    width: 970px;
+  }
+}
+@media screen and (min-width: 80em) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.title-header {
+  color: #646464;
+  font-size: 30px;
+  text-transform: none;
+  padding: 0;
+}
+
+.view-header {
+  color: #949494;
+  font-size: 30px;
+}
+
+.blue-link {
+  color: #6482FD;
+}
+
+.shadow {
+  -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.01), 0 1px 10px 0 rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.01), 0 1px 10px 0 rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+$border-radius-default: 3px;
+
+table {
+  width: 100%;
+  border-collapse: separate; 
+  border-spacing: 0px 10px;
+  font-family: 'Roboto Mono', monospace;
+
+  .table-header {
+    background-color: #F1F5FF;
+
+    th {
+      padding: 5px 0px;
+    }
+  }
+
+  .table-row {
+    @extend .shadow;
+    border-radius: $border-radius-default;
+
+    td {
+      background-color: #FFFFFF;
+      text-align: center;
+      padding: 25px 0px;
+      position: relative;
+
+      .table-rainbow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 100%;
+        opacity: 0.7;
+
+        background: linear-gradient(aquamarine, gold, orchid, crimson, blue);
+        animation: rainbow 2s ease-in-out infinite;
+        transition: color .2s ease-in-out;
+      }
+
+      &:first-child,
+      .table-rainbow {
+        border-top-left-radius: $border-radius-default;
+        border-bottom-left-radius: $border-radius-default;
+      }
+
+      &:last-child {
+        border-top-right-radius: $border-radius-default;
+        border-bottom-right-radius: $border-radius-default;
+      }
+    }
+  }
+}

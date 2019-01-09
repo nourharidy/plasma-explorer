@@ -1,65 +1,55 @@
 <template>
-  <v-container
-    id="grid"
-    grid-list-md
-  >
-    <v-data-table
-      :headers="headers"
-      :items="blocks"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="props">
-        <router-link tag="tr" class="table-row" :to="{ name: 'block', params: { number: props.item.number } }">
-          <td>{{ props.item.number }}</td>
-          <td>{{ props.item.hash }}</td>
-          <td>{{ props.item.transactions }}</td>
-        </router-link>
-      </template>
-    </v-data-table>
-  </v-container>
+  <div>
+    <div class="view-header">Blocks</div>
+    <table>
+      <tr class="table-header">
+        <th v-for="header in headers" :key="header.value">
+          {{ header.text }}
+        </th>
+      </tr>
+      <tr v-for="block in blocks" :key="block.number" class="table-row">
+        <td class="blue-link"><div class="table-rainbow"></div>{{ block.number }}</td>
+        <td>{{ block.size }}</td>
+        <td>{{ block.timestamp }}</td>
+        <td>{{ block.transactions }}</td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
-  import plasma from '../services/client-service'
+import plasma from '../services/client-service'
 
-  export default {
-    data () {
-      return {
-        headers: [
-          {
-            text: 'Block Number',
-            align: 'left',
-            sortable: false,
-            value: 'number'
-          },
-          {
-            text: 'Hash',
-            align: 'left',
-            sortable: false,
-            value: 'hash'
-          },
-          {
-            text: 'Transactions',
-            align: 'left',
-            sortable: false,
-            value: 'transactions'
-          }
-        ],
-        blocks: []
-      }
-    },
-    mounted () {
-      plasma
-        .getBlocks(0, 10)
-        .then((blocks) => {
-          this.blocks = blocks
-        })
+export default {
+  data () {
+    return {
+      headers: [
+        {
+          text: 'Height',
+          value: 'height'
+        },
+        {
+          text: 'Size',
+          value: 'size'
+        },
+        {
+          text: 'Timestamp',
+          value: 'timestamp'
+        },
+        {
+          text: 'Number of Transactions',
+          value: 'transactions'
+        }
+      ],
+      blocks: []
     }
+  },
+  mounted () {
+    plasma
+      .getBlocks(0, 10)
+      .then((blocks) => {
+        this.blocks = blocks.reverse()
+      })
   }
-</script>
-
-<style>
-.table-row {
-  cursor: pointer;
 }
-</style>
+</script>

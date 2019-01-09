@@ -1,6 +1,5 @@
-const plasma = require('plasma-js-lib')
+const Plasma = require('plasma-js-lib')
 
-const provider = new plasma.providers.DummyProvider()
-const client = new plasma.PlasmaClient(provider)
+const plasma = new Plasma(new Plasma.providers.DummyProvider())
 
-export default client
+export default plasma
