@@ -40,6 +40,7 @@ body {
 .view-header {
   color: #949494;
   font-size: 30px;
+  padding: 30px 0 10px 0;
 }
 
 .blue-link {
@@ -53,6 +54,20 @@ body {
 
 $border-radius-default: 3px;
 
+.rainbow-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  opacity: 0.7;
+  background: linear-gradient(aquamarine, gold, orchid, crimson, blue);
+  animation: rainbow 2s ease-in-out infinite;
+  transition: color .2s ease-in-out;
+  border-top-left-radius: $border-radius-default;
+  border-bottom-left-radius: $border-radius-default;
+}
+
 table {
   width: 100%;
   border-collapse: separate; 
@@ -64,6 +79,7 @@ table {
 
     th {
       padding: 5px 0px;
+      text-transform: uppercase;
     }
   }
 
@@ -74,24 +90,14 @@ table {
     td {
       background-color: #FFFFFF;
       text-align: center;
-      padding: 25px 0px;
+      padding: 25px 15px;
       position: relative;
+      max-width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
-      .table-rainbow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 8px;
-        height: 100%;
-        opacity: 0.7;
-
-        background: linear-gradient(aquamarine, gold, orchid, crimson, blue);
-        animation: rainbow 2s ease-in-out infinite;
-        transition: color .2s ease-in-out;
-      }
-
-      &:first-child,
-      .table-rainbow {
+      &:first-child {
         border-top-left-radius: $border-radius-default;
         border-bottom-left-radius: $border-radius-default;
       }
@@ -102,4 +108,64 @@ table {
       }
     }
   }
+}
+
+.pagination {
+  font-family: 'Roboto Mono', monospace;
+  background-color: #F1F5FF;
+  padding: 5px;
+  display: inline-block;
+
+  a {
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+
+    &.disabled {
+      display: none;
+    }
+  }
+
+  div {
+    display: inline-block;
+  }
+}
+
+.break-word {
+  overflow-wrap: break-word;
+}
+
+.single-info {
+  @extend .shadow;
+  position: relative;
+  padding: 30px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+
+  .info-block {
+    height: 100%;
+    padding: 0 50px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .info-data {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+  }
+
+  .info-title {
+    color: #939393;
+  }
+}
+
+.vertical-divider {
+  height: 100%;
+  width: 1px;
+  background-color: #939393;
+  display: inline-block;
 }
