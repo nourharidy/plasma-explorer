@@ -20,7 +20,13 @@
     "url": "https://github.com/plasma-group/plasma-explorer/issues"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.12",
+    "@fortawesome/free-solid-svg-icons": "^5.6.3",
+    "@fortawesome/vue-fontawesome": "^0.1.4",
+    "body-scroll-lock": "^2.6.1",
+    "i": "^0.3.6",
     "node-sass": "^4.11.0",
+    "npm": "^6.5.0",
     "plasma-js-lib": "git+ssh://git@github.com/plasma-group/plasma-js-lib.git",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",

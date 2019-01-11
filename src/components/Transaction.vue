@@ -1,71 +1,54 @@
 <template>
-  <v-container
-    id="grid"
-    grid-list-md
-  >
-    <v-layout row wrap>
-      <v-flex>
-        <div class="content elevation-5">
-          <h2 class="item-hash">Transaction <span class="font-weight-light">{{ $route.params.hash }}</span></h2>
-          <v-layout row wrap>
-            <v-flex xs12 md2 class="property-title">
-              Hash:
-            </v-flex>
-            <v-flex xs12 md10>
-              {{ $route.params.hash }}
-            </v-flex>
-
-            <v-flex xs12 md2 class="property-title">
-              Block:
-            </v-flex>
-            <v-flex xs12 md10>
-              <router-link :to="{ name:'block', params: { number: tx.block } }">{{ tx.block }}</router-link>
-            </v-flex>
-
-            <v-flex xs12 md2 class="property-title">
-              From:
-            </v-flex>
-            <v-flex xs12 md10>
-              {{ tx.from }}
-            </v-flex>
-
-            <v-flex xs12 md2 class="property-title">
-              To:
-            </v-flex>
-            <v-flex xs12 md10>
-              {{ tx.to }}
-            </v-flex>
-
-            <v-flex xs12 md2 class="property-title">
-              Value:
-            </v-flex>
-            <v-flex xs12 md10>
-              {{ tx.val }}
-            </v-flex>
-          </v-layout>
+  <div>
+    <div class="view-header">Transaction</div>
+    <div class="view-header-small">
+      <span class="header-title">Hash</span> | {{ transaction.hash }}
+    </div>
+    <div v-for="transfer in transaction.transfers" :key="transfer.id">
+      <div class="single-info pure-g">
+        <div class="rainbow-left"></div>
+        <div class="pure-u-1 pure-u-sm-1-3 text-center">
+          <div class="info-point">
+            <div class="info-data ellipsis">{{ transfer.sender }}</div>
+          </div>
         </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        <div class="pure-u-1 pure-u-sm-1-3 text-center">
+          <div>{{ transfer.amount }} {{ transfer.token }}</div>
+        </div>
+        <div class="pure-u-1 pure-u-sm-1-3 text-center">
+          <div class="info-point">
+            <div class="info-data ellipsis">{{ transfer.recipient }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import plasma from '../services/client-service'
+import plasma from '../services/client-service'
 
-  export default {
-    data () {
-      return {
-        tx: undefined
-      }
-    },
-    mounted () {
-      plasma
-        .getTransaction(this.$route.params.hash)
-        .then((tx) => {
-          this.tx = tx
-        })
+export default {
+  data () {
+    return {
+      transfer: {},
+      transaction: {},
+      hash: undefined
+    }
+  },
+  mounted () {
+    this.hash = this.$route.params.hash
+    this.loadItems()
+  },
+  methods: {
+    loadItems () {
+      this.page = parseInt(this.$route.query.page) || 1
+      plasma.getTransaction(this.hash).then((transaction) => {
+        this.transaction = transaction
+      })
     }
   }
+}
 </script>
 
 <style>

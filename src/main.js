@@ -4,6 +4,10 @@ import Meta from 'vue-meta'
 import Router from 'vue-router'
 import App from './App.vue'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import Home from './components/Home'
 import Blocks from './components/Blocks'
 import Transactions from './components/Transactions'
@@ -12,6 +16,10 @@ import Transaction from './components/Transaction'
 
 Vue.use(Router)
 Vue.use(Meta)
+
+library.add(faBars)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 

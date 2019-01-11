@@ -1,86 +1,60 @@
 <template>
-  <v-container
-    id="grid"
-    grid-list-md
-  >
-    <v-data-table
-      :headers="headers"
-      :items="transactions"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="props">
-        <router-link tag="tr" class="table-row" :to="{ name: 'transaction', params: { hash: props.item.hash } }">
-          <td>{{ props.item.hash }}</td>
-          <td>{{ props.item.block }}</td>
-          <td>{{ props.item.from }}</td>
-          <td>{{ props.item.to }}</td>
-          <td>{{ props.item.val }}</td>
-          <td>{{ props.item.fee }}</td>
+  <div>
+    <div class="hidden-xs-down">
+    </div>
+    <div class="hidden-sm-up">
+      <div class="mobile-view-header">Transactions</div>
+      <div class="mobile-view-container container">
+        <router-link tag="div" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }" class="card">
+          <div class="rainbow-left"></div>
+          <div class="main-info">
+            <span class="info-label">Transaction ID</span> <br />
+            <span class="blue-link">{{ tx.hash }}</span>
+          </div>
+          <div><span class="info-label">Block:</span> {{ tx.block }}</div>
+          <div><span class="info-label">Timestamp:</span> {{ tx.timestamp }}</div>
+          <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
         </router-link>
-      </template>
-    </v-data-table>
-  </v-container>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import plasma from '../services/client-service'
+import plasma from '../services/client-service'
 
-  export default {
-    data () {
-      return {
-        headers: [
-          {
-            text: 'Hash',
-            align: 'left',
-            sortable: false,
-            value: 'hash'
-          },
-          {
-            text: 'Block',
-            align: 'left',
-            sortable: false,
-            value: 'block'
-          },
-          {
-            text: 'From',
-            align: 'left',
-            sortable: false,
-            value: 'from'
-          },
-          {
-            text: 'To',
-            align: 'left',
-            sortable: false,
-            value: 'to'
-          },
-          {
-            text: 'Value',
-            align: 'left',
-            sortable: false,
-            value: 'value'
-          },
-          {
-            text: 'Fee',
-            align: 'left',
-            sortable: false,
-            value: 'fee'
-          }
-        ],
-        transactions: []
-      }
-    },
-    mounted () {
-      plasma
-        .getTransactions()
-        .then((txs) => {
-          this.transactions = txs
-        })
+const ITEMS_PER_PAGE = 10
+
+export default {
+  data () {
+    return {
+      transactions: [],
+      page: 1,
+      maxPage: 1
+    }
+  },
+  watch: {
+    '$route.query.page': function () {
+      this.loadItems()
+    }
+  },
+  mounted () {
+    this.loadItems()
+  },
+  methods: {
+    loadItems () {
+      this.page = parseInt(this.$route.query.page) || 1
+      const start = (this.page - 1) * ITEMS_PER_PAGE
+      const end = this.page * ITEMS_PER_PAGE
+
+      plasma.getRecentTransactions(start, end).then((transactions) => {
+        this.transactions = transactions
+      })
     }
   }
+}
 </script>
 
-<style>
-.table-row {
-  cursor: pointer;
-}
+<style lang="scss">
+
 </style>
