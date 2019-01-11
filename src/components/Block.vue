@@ -17,6 +17,16 @@
           <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
           <div><span class="info-label">Transactions:</span> {{ block.transactions }}</div>
         </div>
+        <div class="mobile-sub-header">Transactions</div>
+        <div class="card text-center" v-if="transactions.length === 0">
+          This block doesn't have any transactions!
+        </div>
+        <router-link tag="div" class="card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
+          <div class="main-info">
+            {{ tx.hash }}
+          </div>
+          <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
+        </router-link>
       </div>
     </div>
   </div>

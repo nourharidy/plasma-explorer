@@ -87,7 +87,6 @@ export default {
 
       plasma.getBlocks(start, end).then((blocks) => {
         this.blocks = blocks.reverse()
-        this.blocks = this.blocks.concat(this.blocks).concat(this.blocks)
       })
     }
   }

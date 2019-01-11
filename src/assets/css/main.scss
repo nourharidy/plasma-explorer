@@ -74,6 +74,10 @@ a {
   @include transitions(200ms);
 }
 
+.no-text-transform {
+  text-transform: none;
+}
+
 .navbar {
   @extend .sidebar-shifted;
 
@@ -120,6 +124,23 @@ a {
   .info-label {
     font-weight: bold;
   }
+}
+
+.mobile-sub-header {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-transform: uppercase;
+  padding: 0 15px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, gold, aquamarine, crimson, orchid, blue);
+  background-size: 200% 200%;
+  animation: rainbow 2s ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip:text;
+  color:rgba(0, 0, 0, 0);
 }
 
 .menu-icon {
@@ -208,9 +229,15 @@ ul {
 }
 
 @keyframes rainbow { 
-  0%{background-position:left}
-  50%{background-position:right}
-  100%{background-position:left}
+  0%{
+    background-position: left;
+  }
+  50%{
+    background-position:right;
+  }
+  100%{
+    background-position:left;
+  }
 }
 
 .mobile-view-header {
@@ -282,8 +309,6 @@ $border-radius-default: 3px;
   height: 100%;
   opacity: 0.7;
   background: linear-gradient(aquamarine, gold, orchid, crimson, blue);
-  animation: rainbow 2s ease-in-out infinite;
-  transition: color .2s ease-in-out;
   border-top-left-radius: $border-radius-default;
   border-bottom-left-radius: $border-radius-default;
 }

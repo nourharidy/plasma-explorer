@@ -1,24 +1,26 @@
 <template>
   <div>
-    <div class="view-header">Transaction</div>
-    <div class="view-header-small">
-      <span class="header-title">Hash</span> | {{ transaction.hash }}
-    </div>
-    <div v-for="transfer in transaction.transfers" :key="transfer.id">
-      <div class="single-info pure-g">
-        <div class="rainbow-left"></div>
-        <div class="pure-u-1 pure-u-sm-1-3 text-center">
-          <div class="info-point">
-            <div class="info-data ellipsis">{{ transfer.sender }}</div>
+    <div class="hidden-xs-down"></div>
+    <div class="hidden-sm-up">
+      <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ transaction.hash }}</span></div>
+      <div class="mobile-view-container container">
+        <div class="card">
+          <div class="rainbow-left"></div>
+          <div class="main-info">
+            <span class="info-label">Block</span> #{{ transaction.block }}
           </div>
+          <div><span class="info-label">Timestamp:</span> {{ transaction.timestamp }}</div>
         </div>
-        <div class="pure-u-1 pure-u-sm-1-3 text-center">
-          <div>{{ transfer.amount }} {{ transfer.token }}</div>
+        <div class="mobile-sub-header">Transfers</div>
+        <div class="card text-center" v-if="transaction.transfers.length === 0">
+          This transaction doesn't have any transfers!
         </div>
-        <div class="pure-u-1 pure-u-sm-1-3 text-center">
-          <div class="info-point">
-            <div class="info-data ellipsis">{{ transfer.recipient }}</div>
+        <div class="card" v-for="transfer in transaction.transfers" :key="transfer.id">
+          <div class="main-info">
+            {{ transfer.amount }} {{ transfer.token }}
           </div>
+          <div><span class="info-label">From:</span> {{ transfer.sender }}</div>
+          <div><span class="info-label">To:</span> {{ transfer.recipient }}</div>
         </div>
       </div>
     </div>
@@ -32,7 +34,9 @@ export default {
   data () {
     return {
       transfer: {},
-      transaction: {},
+      transaction: {
+        transfers: []
+      },
       hash: undefined
     }
   },
