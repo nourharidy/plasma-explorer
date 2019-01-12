@@ -8,7 +8,7 @@
           <div class="menu-icon" v-on:click="toggleSidebar">
             <font-awesome-icon icon="bars" class="hidden-sm-up" />
           </div>
-          <ul class="hidden-xs-down">
+          <ul class="hidden-xs-down main-menu">
             <li>
               <router-link to="/" exact>Dashboard</router-link>
             </li>

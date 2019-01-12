@@ -1,21 +1,17 @@
 <template>
   <div>
-    <div class="hidden-xs-down">
-    </div>
-    <div class="hidden-sm-up">
-      <div class="mobile-view-header">Transactions</div>
-      <div class="mobile-view-container container">
-        <router-link tag="div" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }" class="card">
-          <div class="rainbow-left"></div>
-          <div class="main-info">
-            <span class="info-label">Transaction ID</span> <br />
-            <span class="blue-link">{{ tx.hash }}</span>
-          </div>
-          <div><span class="info-label">Block:</span> {{ tx.block }}</div>
-          <div><span class="info-label">Timestamp:</span> {{ tx.timestamp }}</div>
-          <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
-        </router-link>
-      </div>
+    <div class="mobile-view-header">Transactions</div>
+    <div class="mobile-view-container container">
+      <router-link tag="div" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }" class="card">
+        <div class="rainbow-left"></div>
+        <div class="main-info">
+          <span class="info-label">Transaction ID</span> <br />
+          <span class="blue-link">{{ tx.hash }}</span>
+        </div>
+        <div><span class="info-label">Block:</span> {{ tx.block }}</div>
+        <div><span class="info-label">Timestamp:</span> {{ tx.timestamp }}</div>
+        <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
+      </router-link>
     </div>
   </div>
 </template>

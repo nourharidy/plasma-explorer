@@ -1,27 +1,24 @@
 <template>
   <div>
-    <div class="hidden-xs-down"></div>
-    <div class="hidden-sm-up">
-      <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ transaction.hash }}</span></div>
-      <div class="mobile-view-container container">
-        <div class="card">
-          <div class="rainbow-left"></div>
-          <div class="main-info">
-            <span class="info-label">Block</span> #{{ transaction.block }}
-          </div>
-          <div><span class="info-label">Timestamp:</span> {{ transaction.timestamp }}</div>
+    <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ transaction.hash }}</span></div>
+    <div class="mobile-view-container container">
+      <div class="card">
+        <div class="rainbow-left"></div>
+        <div class="main-info">
+          <span class="info-label">Block</span> #{{ transaction.block }}
         </div>
-        <div class="mobile-sub-header">Transfers</div>
-        <div class="card text-center" v-if="transaction.transfers.length === 0">
-          This transaction doesn't have any transfers!
+        <div><span class="info-label">Timestamp:</span> {{ transaction.timestamp }}</div>
+      </div>
+      <div class="mobile-sub-header">Transfers</div>
+      <div class="card text-center" v-if="transaction.transfers.length === 0">
+        This transaction doesn't have any transfers!
+      </div>
+      <div class="card" v-for="transfer in transaction.transfers" :key="transfer.id">
+        <div class="main-info">
+          {{ transfer.amount }} {{ transfer.token }}
         </div>
-        <div class="card" v-for="transfer in transaction.transfers" :key="transfer.id">
-          <div class="main-info">
-            {{ transfer.amount }} {{ transfer.token }}
-          </div>
-          <div><span class="info-label">From:</span> {{ transfer.sender }}</div>
-          <div><span class="info-label">To:</span> {{ transfer.recipient }}</div>
-        </div>
+        <div><span class="info-label">From:</span> {{ transfer.sender }}</div>
+        <div><span class="info-label">To:</span> {{ transfer.recipient }}</div>
       </div>
     </div>
   </div>

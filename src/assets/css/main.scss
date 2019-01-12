@@ -29,7 +29,7 @@
 body, html {
   background-color: #FBFBFB;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-behavior: smooth;
 }
 
@@ -68,6 +68,11 @@ body, html {
 
 a {
   text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  @extend .rainbow-text;
 }
 
 .sidebar-shifted {
@@ -76,6 +81,18 @@ a {
 
 .no-text-transform {
   text-transform: none;
+}
+
+.main-menu {
+  float: right;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
 }
 
 .navbar {
@@ -126,7 +143,19 @@ a {
   }
 }
 
+.rainbow-text {
+  background: linear-gradient(to right, gold, aquamarine, crimson, orchid, blue);
+  background-size: 200% 200%;
+  animation: rainbow 2s ease-in-out infinite;
+  transition: color .2s ease-in-out;
+  background-clip: text;
+  -webkit-background-clip:text;
+  color: rgba(0, 0, 0, 0);
+}
+
 .mobile-sub-header {
+  @extend .rainbow-text;
+
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   text-transform: uppercase;
@@ -135,12 +164,6 @@ a {
   line-height: 28px;
   font-size: 12px;
   margin-bottom: 10px;
-  background: linear-gradient(to right, gold, aquamarine, crimson, orchid, blue);
-  background-size: 200% 200%;
-  animation: rainbow 2s ease-in-out infinite;
-  background-clip: text;
-  -webkit-background-clip:text;
-  color:rgba(0, 0, 0, 0);
 }
 
 .menu-icon {
@@ -261,7 +284,6 @@ ul {
 .mobile-view-container {
   padding-top: 90px;
   position: relative;
-  overflow-y: scroll;
 }
 
 .view-header-small {

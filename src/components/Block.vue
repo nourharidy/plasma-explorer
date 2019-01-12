@@ -1,33 +1,30 @@
 <template>
   <div>
-    <div class="hidden-xs-down"></div>
-    <div class="hidden-sm-up">
-      <div class="mobile-view-header">Block #{{ block.number }}</div>
-      <div class="mobile-view-container container">
-        <div class="card">
-          <div class="rainbow-left"></div>
-          <div class="main-info">
-            <span class="info-label">Block Hash</span> <br />
-            {{ block.hash }}
-          </div>
-          <div class="main-info">
-            <span class="info-label">Operator Address</span> <br />
-            {{ block.operator }}
-          </div>
-          <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
-          <div><span class="info-label">Transactions:</span> {{ block.transactions }}</div>
+    <div class="mobile-view-header">Block #{{ block.number }}</div>
+    <div class="mobile-view-container container">
+      <div class="card">
+        <div class="rainbow-left"></div>
+        <div class="main-info">
+          <span class="info-label">Block Hash</span> <br />
+          {{ block.hash }}
         </div>
-        <div class="mobile-sub-header">Transactions</div>
-        <div class="card text-center" v-if="transactions.length === 0">
-          This block doesn't have any transactions!
+        <div class="main-info">
+          <span class="info-label">Operator Address</span> <br />
+          {{ block.operator }}
         </div>
-        <router-link tag="div" class="card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
-          <div class="main-info">
-            {{ tx.hash }}
-          </div>
-          <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
-        </router-link>
+        <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
+        <div><span class="info-label">Transactions:</span> {{ block.transactions }}</div>
       </div>
+      <div class="mobile-sub-header">Transactions</div>
+      <div class="card text-center" v-if="transactions.length === 0">
+        This block doesn't have any transactions!
+      </div>
+      <router-link tag="div" class="card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
+        <div class="main-info">
+          {{ tx.hash }}
+        </div>
+        <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
+      </router-link>
     </div>
   </div>
 </template>
