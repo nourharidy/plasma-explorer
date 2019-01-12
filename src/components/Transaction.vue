@@ -51,20 +51,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.content {
-  padding: 20px;
-}
-
-.item-hash {
-  margin-bottom: 20px;
-}
-.item-hash > span {
-  color: #999;
-}
-
-.property-title {
-  font-weight: bold;
-}
-</style>

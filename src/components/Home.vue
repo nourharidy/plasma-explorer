@@ -42,9 +42,3 @@
     }
   }
 </script>
-
-<style>
-.table-row {
-  cursor: pointer;
-}
-</style>

@@ -69,9 +69,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.block-info {
-  height: 200px;
-}
-</style>
