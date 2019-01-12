@@ -5,10 +5,10 @@
       <div class="navbar">
         <div class="home-menu">
           <router-link to="/" class="app-title">Plasma Block Explorer</router-link>
-          <div class="menu-icon" v-on:click="toggleSidebar">
-            <font-awesome-icon icon="bars" class="hidden-sm-up" />
+          <div class="hamburger-icon" v-on:click="toggleSidebar">
+            <font-awesome-icon icon="bars" class="hidden-desktop" />
           </div>
-          <ul class="hidden-xs-down main-menu">
+          <ul class="hidden-mobile main-menu">
             <li>
               <router-link to="/" exact>Dashboard</router-link>
             </li>
@@ -24,7 +24,7 @@
       <router-view></router-view>
     </div>
     <div class="side-menu-container" id="side-menu" v-bind:class="{ toggled: sidebarToggled }">
-      <ul class="side-menu hidden-sm-up">
+      <ul class="side-menu hidden-desktop">
         <li><router-link to="/" exact>Dashboard</router-link></li>
         <li><router-link to="/blocks">Blocks</router-link></li>
         <li><router-link to="/transactions">Transactions</router-link></li>
