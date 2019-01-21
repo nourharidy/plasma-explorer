@@ -38,10 +38,6 @@ require('@/assets/css/pure.min.css')
 require('@/assets/css/pure-grid.min.css')
 require('@/assets/css/main.scss')
 
-const bodyScrollLock = require('body-scroll-lock');
-const disableBodyScroll = bodyScrollLock.disableBodyScroll;
-const enableBodyScroll = bodyScrollLock.enableBodyScroll;
-
 export default {
   name: 'App',
   metaInfo: {
@@ -61,11 +57,9 @@ export default {
       this.sidebarToggled ? this.closeSidebar() : this.openSidebar();
     },
     openSidebar () {
-      disableBodyScroll()
       this.sidebarToggled = true
     },
     closeSidebar () {
-      enableBodyScroll()
       this.sidebarToggled = false
     }
   }
