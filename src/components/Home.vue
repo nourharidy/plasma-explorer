@@ -47,7 +47,7 @@ export default {
       })
       this.blocks = blocks
     })
-    plasma.operator.getRecentTransactions(10).then((transactions) => {
+    plasma.operator.getRecentTransactions(0, 10).then((transactions) => {
       // TODO: Filter out duplicates.
       transactions = transactions.filter((transaction) => {
         return !utils.utils.isString(transaction)

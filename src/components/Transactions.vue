@@ -54,7 +54,7 @@ export default {
       const end = this.page * ITEMS_PER_PAGE
 
       let txs // TODO: Figure out how to get rid of this hack.
-      plasma.operator.getRecentTransactions(end).then((transactions) => {
+      plasma.operator.getRecentTransactions(start, end).then((transactions) => {
         // TODO: Filter out duplicates.
         transactions = transactions.filter((transaction) => {
           return !utils.utils.isString(transaction)
