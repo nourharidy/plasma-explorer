@@ -2,13 +2,13 @@
   <div>
     <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ transaction.hash }}</span></div>
     <div class="mobile-view-container container">
-      <div class="card">
+      <router-link tag="div" class="card link-card" :to="{ name: 'block', params: { number: block.blockNumber } }">
         <div class="rainbow-left"></div>
         <div class="main-info">
-          <span class="info-label">Block</span> #{{ transaction.block }}
+          <span class="info-label">Block</span> <span class="blue-link"> #{{ block.blockNumber }}</span>
         </div>
-        <div><span class="info-label">Timestamp:</span> {{ transaction.timestamp }}</div>
-      </div>
+        <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
+      </router-link>
       <div class="mobile-sub-header">Transfers</div>
       <div class="card text-center" v-if="transaction.transfers.length === 0">
         This transaction doesn't have any transfers!
@@ -26,6 +26,10 @@
 
 <script>
 import plasma from '../services/client-service'
+import BigNum from 'bn.js'
+import utils from 'plasma-utils'
+const models = utils.serialization.models
+const UnsignedTransaction = models.UnsignedTransaction
 
 export default {
   data () {
@@ -34,6 +38,7 @@ export default {
       transaction: {
         transfers: []
       },
+      block: {},
       hash: undefined
     }
   },
@@ -42,10 +47,31 @@ export default {
     this.loadItems()
   },
   methods: {
+    cleanTimestamp (timestamp) {
+      timestamp = new BigNum(timestamp, 'hex').toString()
+      const date = new Date()
+      date.setTime(timestamp)
+      return date.toUTCString()
+    },
+    tokenToTicker (token) {
+      // TODO: Just temporary. Should be a better way later.
+      const tickers = {
+        '0': 'ETH'
+      }
+      return tickers[token]
+    },
     loadItems () {
-      this.page = parseInt(this.$route.query.page) || 1
-      plasma.getTransaction(this.hash).then((transaction) => {
-        this.transaction = transaction
+      plasma.operator.getTransaction(this.hash).then((transaction) => {
+        this.transaction = new UnsignedTransaction(transaction)
+        this.transaction.transfers.forEach((transfer) => {
+          transfer.amount = transfer.end.sub(transfer.start).toString(10)
+          transfer.token = this.tokenToTicker(transfer.token)
+        })
+        return plasma.operator.getBlockMetadata(this.transaction.block.toString(10))
+      }).then((blocks) => {
+        const block = blocks[0]
+        block.timestamp = this.cleanTimestamp(block.timestamp)
+        this.block = block
       })
     }
   }

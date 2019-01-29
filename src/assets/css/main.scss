@@ -130,6 +130,16 @@
   padding: 10px 15px;
   margin-bottom: 10px;
 
+  &.link-card {
+    @include transitions(200ms);
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
   div {
     @extend .ellipsis;
   }
