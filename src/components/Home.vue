@@ -45,7 +45,7 @@ export default {
       blocks.forEach((block) => {
         block.timestamp = this.cleanTimestamp(block.timestamp)
       })
-      this.blocks = blocks
+      this.blocks = blocks.reverse()
     })
     plasma.operator.getRecentTransactions(0, 10).then((transactions) => {
       // TODO: Filter out duplicates.
