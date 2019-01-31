@@ -1,24 +1,25 @@
 <template>
   <div>
     <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ this.$route.params.hash }}</span></div>
-    <div class="mobile-view-container container">
-      <router-link tag="div" class="card link-card" :to="{ name: 'block', params: { number: block.blockNumber } }">
-        <div class="rainbow-left"></div>
-        <div class="main-info">
-          <span class="info-label">Block</span> <span class="blue-link"> #{{ block.blockNumber }}</span>
+      <div class="mobile-view-container container">
+        <router-link tag="div" class="card link-card" :to="{ name: 'block', params: { number: block.blockNumber } }">
+          <div class="rainbow-left"></div>
+          <div class="main-info">
+            <span class="info-label">Block</span> <span class="blue-link"> #{{ block.blockNumber }}</span>
+          </div>
+          <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
+        </router-link>
+        <div class="mobile-sub-header">Transfers</div>
+        <div class="card text-center" v-if="transaction.transfers.length === 0">
+          This transaction doesn't have any transfers!
         </div>
-        <div><span class="info-label">Timestamp:</span> {{ block.timestamp }}</div>
-      </router-link>
-      <div class="mobile-sub-header">Transfers</div>
-      <div class="card text-center" v-if="transaction.transfers.length === 0">
-        This transaction doesn't have any transfers!
-      </div>
-      <div class="card" v-for="transfer in transaction.transfers" :key="transfer.id">
-        <div class="main-info">
-          {{ transfer.amount }} {{ transfer.token }}
+        <div class="card" v-for="transfer in transaction.transfers" :key="transfer.id">
+          <div class="main-info">
+            {{ transfer.amount }} {{ transfer.token }}
+          </div>
+          <div><span class="info-label">From:</span> {{ transfer.sender }}</div>
+          <div><span class="info-label">To:</span> {{ transfer.recipient }}</div>
         </div>
-        <div><span class="info-label">From:</span> {{ transfer.sender }}</div>
-        <div><span class="info-label">To:</span> {{ transfer.recipient }}</div>
       </div>
     </div>
   </div>
@@ -35,6 +36,7 @@ export default {
   data () {
     return {
       transfer: {},
+      pending: true,
       transaction: {
         transfers: []
       },
@@ -69,6 +71,9 @@ export default {
         })
         return plasma.operator.getBlockMetadata(this.transaction.block.toString(16))
       }).then((blocks) => {
+        if (blocks === undefined) {
+          return
+        }
         const block = blocks[0]
         block.timestamp = this.cleanTimestamp(block.timestamp)
         block.blockNumber = new BigNum(block.blockNumber, 16).toString(10)

@@ -12,7 +12,7 @@
         <div><span class="info-label">Transactions:</span> {{ block.numTxs }}</div>
       </router-link>
       <div class="mobile-sub-header">Transactions</div>
-      <router-link tag="div" class="card link-card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transacton', params: { hash: tx.hash } }">
+      <router-link tag="div" class="card link-card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
         <div class="main-info">
           {{ tx.hash }}
         </div>

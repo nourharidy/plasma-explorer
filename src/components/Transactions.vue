@@ -2,14 +2,11 @@
   <div>
     <div class="mobile-view-header">Transactions</div>
     <div class="mobile-view-container container">
-      <router-link tag="div"  class="card link-card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
-        <div class="rainbow-left"></div>
+      <div class="mobile-sub-header">Transactions</div>
+      <router-link tag="div" class="card link-card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transacton', params: { hash: tx.hash } }">
         <div class="main-info">
-          <span class="info-label">Transaction ID</span> <br />
-          <span class="blue-link">{{ tx.hash }}</span>
+          {{ tx.hash }}
         </div>
-        <div><span class="info-label">Block:</span> {{ tx.block.toString() }}</div>
-        <div><span class="info-label">Timestamp:</span> {{ tx.timestamp }}</div>
         <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
       </router-link>
     </div>
@@ -23,23 +20,29 @@ import utils from 'plasma-utils'
 const models = utils.serialization.models
 const UnsignedTransaction = models.UnsignedTransaction
 
-const ITEMS_PER_PAGE = 10
-
 export default {
   data () {
     return {
-      transactions: [],
-      page: 1,
-      maxPage: 1
-    }
-  },
-  watch: {
-    '$route.query.page': function () {
-      this.loadItems()
+      transactions: []
     }
   },
   mounted () {
-    this.loadItems()
+    plasma.operator.getRecentTransactions(0, 20).then((transactions) => {
+      // TODO: Filter out duplicates.
+      transactions = transactions.filter((transaction) => {
+        return !utils.utils.isString(transaction)
+      })
+
+      this.transactions = transactions.map((transaction) => {
+        return new UnsignedTransaction(transaction)
+      })
+      if (this.transactions.length === 0) return
+
+      return plasma.operator.getBlockMetadata(
+        this.transactions[this.transactions.length - 1].block,
+        this.transactions[0].block
+      )
+    })
   },
   methods: {
     cleanTimestamp (timestamp) {
@@ -47,36 +50,6 @@ export default {
       const date = new Date()
       date.setTime(timestamp)
       return date.toUTCString()
-    },
-    loadItems () {
-      this.page = parseInt(this.$route.query.page) || 1
-      const start = (this.page - 1) * ITEMS_PER_PAGE
-      const end = this.page * ITEMS_PER_PAGE
-
-      let txs // TODO: Figure out how to get rid of this hack.
-      plasma.operator.getRecentTransactions(start, end).then((transactions) => {
-        // TODO: Filter out duplicates.
-        transactions = transactions.filter((transaction) => {
-          return !utils.utils.isString(transaction)
-        })
-
-        txs = transactions.map((transaction) => {
-          return new UnsignedTransaction(transaction)
-        })
-        if (txs.length === 0) return
-
-        return plasma.operator.getBlockMetadata(
-          txs[txs.length - 1].block,
-          txs[0].block
-        )
-      }).then((blocks) => {
-        txs.forEach((transaction) => {
-          transaction.timestamp = this.cleanTimestamp(blocks.find((block) => {
-            return transaction.block.eq(new BigNum(block.blockNumber))
-          }).timestamp)
-        })
-        this.transactions = txs
-      })
     }
   }
 }
