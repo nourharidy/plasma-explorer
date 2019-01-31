@@ -53,6 +53,7 @@ export default {
       block = block[0]
       block.timestamp = this.cleanTimestamp(block.timestamp)
       this.block = block
+      this.block.blockNumber = new BigNum(this.block.blockNumber).toString(10)
     })
 
     this.loadTransactions()

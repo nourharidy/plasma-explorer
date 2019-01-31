@@ -71,6 +71,7 @@ export default {
       }).then((blocks) => {
         const block = blocks[0]
         block.timestamp = this.cleanTimestamp(block.timestamp)
+        block.blockNumber = new BigNum(block.blockNumber, 16).toString(10)
         this.block = block
       })
     }
