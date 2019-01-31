@@ -65,12 +65,14 @@ export default {
       return date.toUTCString()
     },
     loadTransactions () {
-      const number = parseInt(this.$route.params.number)
+      // const number = parseInt(this.$route.params.number)
+      const blockNumber = this.$route.params.number
+      const token = 'none'
       this.page = parseInt(this.$route.query.page) || 1
-      const start = (this.page - 1) * ITEMS_PER_PAGE
-      const end = this.page * ITEMS_PER_PAGE
+      const start = '0'
+      const end = 'ffffffffffffffffffffffffffffffff'
 
-      plasma.operator.getBlockTransactions(number, start, end).then((transactions) => {
+      plasma.operator.getBlockTransactions(blockNumber, token, start).then((transactions) => {
         transactions.forEach((transaction) => {
           transaction.hash = new UnsignedTransaction(transaction.encoding).hash
         })

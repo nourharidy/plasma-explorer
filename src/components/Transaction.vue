@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ transaction.hash }}</span></div>
+    <div class="mobile-view-header ellipsis">Transaction <span class="no-text-transform">{{ this.$route.params.hash }}</span></div>
     <div class="mobile-view-container container">
       <router-link tag="div" class="card link-card" :to="{ name: 'block', params: { number: block.blockNumber } }">
         <div class="rainbow-left"></div>
@@ -67,7 +67,7 @@ export default {
           transfer.amount = transfer.end.sub(transfer.start).toString(10)
           transfer.token = this.tokenToTicker(transfer.token)
         })
-        return plasma.operator.getBlockMetadata(this.transaction.block.toString(10))
+        return plasma.operator.getBlockMetadata(this.transaction.block.toString(16))
       }).then((blocks) => {
         const block = blocks[0]
         block.timestamp = this.cleanTimestamp(block.timestamp)

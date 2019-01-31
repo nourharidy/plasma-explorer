@@ -43,6 +43,7 @@ export default {
       return plasma.operator.getBlockMetadata(start, end)
     }).then((blocks) => {
       blocks.forEach((block) => {
+        block.blockNumber = new BigNum(block.blockNumber, 16).toString(10)
         block.timestamp = this.cleanTimestamp(block.timestamp)
       })
       this.blocks = blocks.reverse()
