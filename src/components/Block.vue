@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="mobile-view-header">Block #{{ block.blockNumber }}</div>
-    <div class="mobile-view-container container">
+    <div class="mobile-view-header">Block #{{ blockNumber }}</div>
+    <div class="navbar-buffer"></div>
+    <div class="text-center" v-if="loading">
+      <div class="lds-heart"><div></div></div>
+    </div>
+    <div class="container" v-if="!loading && !error">
       <div class="card">
         <div class="rainbow-left"></div>
         <div class="main-info">
@@ -22,6 +26,11 @@
         <div><span class="info-label">Transfers:</span> {{ tx.transfers.length }}</div>
       </router-link>
     </div>
+    <div class="container" v-if="error">
+      <div class="card text-center">
+        Whoops, something broke. This probably means there's an error on our end.
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,6 +46,9 @@ const ITEMS_PER_PAGE = 10
 export default {
   data () {
     return {
+      error: false,
+      loading: true,
+      blockNumber: '',
       block: {},
       transactions: []
     }
@@ -47,13 +59,12 @@ export default {
     }
   },
   mounted () {
-    const number = parseInt(this.$route.params.number)
+    this.blockNumber = parseInt(this.$route.params.number)
 
-    plasma.operator.getBlockMetadata(number).then((block) => {
+    plasma.operator.getBlockMetadata(this.blockNumber).then((block) => {
       block = block[0]
       block.timestamp = this.cleanTimestamp(block.timestamp)
       this.block = block
-      this.block.blockNumber = new BigNum(this.block.blockNumber).toString(10)
     })
 
     this.loadTransactions()
@@ -68,16 +79,19 @@ export default {
     loadTransactions () {
       // const number = parseInt(this.$route.params.number)
       const blockNumber = this.$route.params.number
-      const token = 'none'
       this.page = parseInt(this.$route.query.page) || 1
-      const start = '0'
-      const end = 'ffffffffffffffffffffffffffffffff'
+      const start = (this.page - 1) * ITEMS_PER_PAGE
+      const end = this.page * ITEMS_PER_PAGE
 
-      plasma.operator.getBlockTransactions(blockNumber, token, start).then((transactions) => {
+      plasma.operator.getBlockTransactions(blockNumber, start, end).then((transactions) => {
         transactions.forEach((transaction) => {
           transaction.hash = new UnsignedTransaction(transaction.encoding).hash
         })
         this.transactions = transactions
+        this.loading = false
+      }).catch((err) => {
+        this.loading = false
+        this.error = true
       })
     }
   }

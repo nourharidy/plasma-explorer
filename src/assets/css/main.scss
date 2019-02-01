@@ -63,13 +63,18 @@
   text-align: center;
 }
 
-.rainbow-text {
-  color: rgba(0, 0, 0, 0);
+.rainbow-background {
   background: linear-gradient(to right, gold, aquamarine, crimson, orchid, blue);
   background-size: 200% 200%;
 
   animation: rainbow 2s ease-in-out infinite;
   transition: color .2s ease-in-out;
+}
+
+.rainbow-text {
+  @extend .rainbow-background;
+
+  color: rgba(0, 0, 0, 0);
 
   background-clip: text;
   -webkit-background-clip: text;
@@ -129,6 +134,8 @@
 
   padding: 10px 15px;
   margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 
   &.link-card {
     @include transitions(200ms);
@@ -222,6 +229,11 @@ ul {
 
 .home-menu {
   padding: 1em;
+}
+
+.navbar-buffer {
+  position: relative;
+  padding-top: 90px;
 }
 
 
@@ -320,13 +332,9 @@ ul {
 
   padding: 0 15px;
   margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-
-.mobile-view-container {
-  position: relative;
-  padding-top: 90px;
-}
-
 
 /* Desktop */
 .main-menu {
@@ -362,5 +370,61 @@ ul {
     .shift-with-sidebar {
       left: -300px;
     }
+  }
+}
+
+/* Loading Spinner */
+.lds-heart {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  transform: rotate(45deg);
+  transform-origin: 32px 32px;
+}
+.lds-heart div {
+  top: 23px;
+  left: 19px;
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: rgb(255, 173, 207);
+  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 26px;
+  height: 26px;
+  background: rgb(255, 173, 207);
+}
+.lds-heart div:before {
+  left: -17px;
+  border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+  top: -17px;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
   }
 }
