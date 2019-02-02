@@ -6,7 +6,7 @@
       <div class="lds-heart"><div></div></div>
     </div>
     <div class="container pure-g" v-if="!loading && !error">
-      <div class="pure-u-sm-1 pure-u-lg-1-2">
+      <div class="pure-u-1 pure-u-lg-1-2">
         <div class="mobile-sub-header">Blocks</div>
         <router-link tag="div" class="card link-card" v-for="block in blocks" :key="block.blockNumber" :to="{ name: 'block', params: { number: block.blockNumber } }">
           <div class="rainbow-left"></div>
@@ -17,7 +17,7 @@
           <div><span class="info-label">Transactions:</span> {{ block.numTxs }}</div>
         </router-link>
       </div>
-      <div class="pure-u-sm-1 pure-u-lg-1-2">
+      <div class="pure-u-1 pure-u-lg-1-2">
         <div class="mobile-sub-header">Transactions</div>
         <router-link tag="div" class="card link-card" v-for="tx in transactions" :key="tx.hash" :to="{ name: 'transaction', params: { hash: tx.hash } }">
           <div class="main-info">
