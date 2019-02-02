@@ -59,8 +59,6 @@ export default {
     loadBlocks () {
       this.loading = true
       this.page = parseInt(this.$route.query.page) || 1
-      const start = (this.page - 1) * ITEMS_PER_PAGE
-      const end = this.page * ITEMS_PER_PAGE
 
       plasma.operator.getCurrentBlock().then((end) => {
         this.maxPage = Math.ceil(end / ITEMS_PER_PAGE)
@@ -73,7 +71,7 @@ export default {
         })
         this.blocks = blocks.reverse()
         this.loading = false
-      }).catch((err) => {
+      }).catch(() => {
         this.loading = false
         this.error = true
       })

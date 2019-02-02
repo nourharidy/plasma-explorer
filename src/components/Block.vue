@@ -41,8 +41,6 @@ import utils from 'plasma-utils'
 const models = utils.serialization.models
 const UnsignedTransaction = models.UnsignedTransaction
 
-const ITEMS_PER_PAGE = 10
-
 export default {
   data () {
     return {
@@ -77,19 +75,18 @@ export default {
       return date.toUTCString()
     },
     loadTransactions () {
-      // const number = parseInt(this.$route.params.number)
       const blockNumber = this.$route.params.number
       this.page = parseInt(this.$route.query.page) || 1
-      const start = (this.page - 1) * ITEMS_PER_PAGE
-      const end = this.page * ITEMS_PER_PAGE
+      const token = 'none'
+      const start = '0'
 
-      plasma.operator.getBlockTransactions(blockNumber, start, end).then((transactions) => {
+      plasma.operator.getBlockTransactions(blockNumber, token, start).then((transactions) => {
         transactions.forEach((transaction) => {
           transaction.hash = new UnsignedTransaction(transaction.encoding).hash
         })
         this.transactions = transactions
         this.loading = false
-      }).catch((err) => {
+      }).catch(() => {
         this.loading = false
         this.error = true
       })

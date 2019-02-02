@@ -73,7 +73,7 @@ export default {
         return new UnsignedTransaction(transaction)
       })
       this.loading = false
-    }).catch((err) => {
+    }).catch(() => {
       this.loading = false
       this.error = true
     })

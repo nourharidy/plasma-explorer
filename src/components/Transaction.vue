@@ -88,7 +88,7 @@ export default {
         block.timestamp = this.cleanTimestamp(block.timestamp)
         block.blockNumber = new BigNum(block.blockNumber, 16).toString(10)
         this.block = block
-      }).catch((err) => {
+      }).catch(() => {
         this.error = true
       }).finally(() => {
         this.loading = false
