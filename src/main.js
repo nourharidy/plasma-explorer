@@ -14,6 +14,7 @@ import Block from './components/Block'
 import Transactions from './components/Transactions'
 import Transaction from './components/Transaction'
 import Account from './components/Account'
+import PageNotFound from './components/PageNotFound'
 
 Vue.use(Router)
 Vue.use(Meta)
@@ -30,7 +31,8 @@ const routes = [
   { path: '/block/:number', name: 'block', component: Block },
   { path: '/transactions', component: Transactions },
   { path: '/transaction/:hash', name: 'transaction', component: Transaction },
-  { path: '/account/:address', name: 'account', component: Account }
+  { path: '/account/:address', name: 'account', component: Account },
+  { path: "*", component: PageNotFound }
 ]
 
 const router = new Router({
